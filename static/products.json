@@ -1,0 +1,49 @@
+{
+   "products": [
+      {
+         "id": 1001,
+         "title": "Cat Food, 25lb bag",
+         "description": "A 25 pound bag of <em>irresistible</em>, organic goodness for your dog.",
+         "price": 2000,
+         "image": "/src/assets/images/Cat.png",
+         "availableInventory": 10,
+         "rating": 1
+      },
+      {
+         "id": 1002,
+         "title": "Dog Food, 25lb bag",
+         "description": "A 25 pound bag of <em>irresistible</em>, organic goodness for your dog.",
+         "price": 2000,
+         "image": "/src/assets/images/Dog.png",
+         "availableInventory": 7,
+         "rating": 1
+      },
+      {
+         "id": 1003,
+         "title": "Yarn",
+         "description": "A 25 pound bag of <em>irresistible</em>, rganic goodness for your dog.",
+         "price": 2000,
+         "image": "/src/assets/images/Cat_myau.png",
+         "availableInventory": 99,
+         "rating": 4
+      },
+      {
+         "id": 1004,
+         "title": "Cat Food, 25lb bag",
+         "description": "A 25 pound bag of <em>irresistible</em>, organic goodness for your dog.",
+         "price": 2000,
+         "image": "/src/assets/images/Smol_cat.png",
+         "availableInventory": 11,
+         "rating": 5
+      },
+      {
+         "id": 1005,
+         "title": "Cat Food, 25lb bag",
+         "description": "A 25 pound bag of <em>irresistible</em>, organic goodness for your dog.",
+         "price": 2000,
+         "image": "../src/assets/images/Frands.png",
+         "availableInventory": 25,
+         "rating": 1
+      }
+   ]
+}

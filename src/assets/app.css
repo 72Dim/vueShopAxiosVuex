@@ -1,0 +1,64 @@
+/* Этот файл подключён в /src/main.js, как глобальные
+	стили сайта, для всех его компонентов.
+*/
+	.current-route-path {
+		display: inline-block;
+		margin-top: 20px;
+	}
+   .wrap-for-header {
+       display: inline-block;
+       margin: 20px 10px;
+   }
+
+   .header-properties {
+       display: inline-block;
+       height: 46px;
+       vertical-align: middle;
+       margin-right: 0;
+       margin-left: 0;
+   }
+
+   div.col-10 header.header-properties h1 {
+       color: burlywood;
+       margin: 0;
+   }
+
+   .wrap-btn-checkout {
+       display: inline-block;
+       float: right;
+       margin: 20px 10px;
+   }
+
+   .for-btn-checkout {
+       display: inline-block;
+       margin: 0;
+   }
+
+   .for-btn-checkout span {
+       vertical-align: top;
+       top: 0px;
+       height: 24px;
+   }
+
+   .test-computed-properties,
+   .products-for-animals,
+   .about-product {
+       display: inline-block;
+   }
+
+   .main-content {
+       margin-right: 0;
+       margin-left: 0;
+   }
+
+   /* .page-show-product,
+   .page-checkout {} */
+
+   .form-group-wrapper {
+       width: 98px;
+       margin: auto;
+   }
+
+   .rating-active {
+       color: black;
+   }
