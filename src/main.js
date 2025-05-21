@@ -1,39 +1,69 @@
 import { createApp } from "vue";
 import router from "./router";
-import { store } from ".store/store.js";
+import { store } from "./store/store.js";
 
 import App from "./App.vue";
-import Header from './components/Header.vue' //? работает
+import Header from './components/Header.vue'
 import Form from './components/Form.vue'
 import Main from './components/Main.vue'
 import './assets/app.css'
 
-const app = createApp({
-	el: '#app',
-	router: router,
-	store, // ES-6 сокращённая форма записи
-	template: '<App/>',
-	components: {
-		App,
-		Header,
-      Form,
-      Main
-	}
-})
-/* Сравнение синтаксисов Vue JS
-	https://habr.com/ru/articles/690508/
+/* console.log(router); для настройки
+   console.log(router.getRoutes());
+   console.log(store);
 */
 
-/* Отображает страницу приветствия
-	import './assets/main.css'
+const formattingLibrary = {   //  formattingLibrary.formatToUpperCase()
+   formatPrice: function (price) {  // Возвращ. отформатир. цену, как $20.00
+      if (!parseInt(price)) { return ";" }
+      if (price > 99999) {
+         var priceString = (price / 100).toFixed(2);
+         var priceArray = priceString.split("").reverse();
+         var index = 3;
+         while (priceArray.length > index + 3) {
+            priceArray.splice(index + 3, 0, "`");
+            index += 4;
+         }
+         return "$" + priceArray.reverse().join("");
+      } else {
+         return "$" + (price / 100).toFixed(2);
+      }
+   },
+   formatToUpperCase: function (params) { // Возвращ. отформатир. текст как ТЕКСТ
+      return params.toUpperCase();
+   }
+};
 
-	import { createApp } from 'vue'
-	import App from './App.vue'
-	import router from './router'
+const app = createApp({
+   el: '#app',
+   router: router,
+   store,   // согласно стандарту ES-6 сокращённая форма записи
+   template: '<App/>',  // or'<App></App>',
+   components: {
+      App,
+      Header,
+      Form,
+      Main
+   }
+});
+// app.config.performance = true; // включает компиляцию и др.
+/* Эта опция конфигурации учитывается только при использовании полной сборки
+   app.config.compilerOptions.isCustomElement смотри vite.config.js
+*/
+app.config.globalProperties.formattingLibrary = formattingLibrary;
+/* регистрация глобальных свойств, доступ к которым может быть
+   получен для любого экземпляра компонента внутри приложения.
+*/
+/* console.log() - для настройки
+   console.log(app.config);
+   console.log(app.config.performance);
+   console.log(app.config.globalProperties);
+*/
+app.use(router);
+app.use(store);
 
-	const app = createApp(App)
+app.mount('#app');
 
-	app.use(router)
-
-	app.mount('#app')
+/* Сравнение синтаксисов Vue JS
+	https://habr.com/ru/articles/690508/
 */

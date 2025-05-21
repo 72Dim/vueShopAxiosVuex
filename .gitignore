@@ -29,4 +29,6 @@ coverage
 
 *.tsbuildinfo
 
+# my ignore folders and files
 z*.*
+myErrors.text

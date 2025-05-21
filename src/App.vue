@@ -4,22 +4,21 @@
 	Это рекомендуемый синтаксис при использовании
 	однофайловых компонентов и Composition API.
 -->
-<!-- <script setup> -->
-
 <script type="module">
 import { RouterLink, RouterView } from 'vue-router'
 
 export default {
       name: 'App',
       props: ['cartItemCount'],
+      components: { RouterLink, RouterView },
       data() {},
 	}
 </script>
 
 <template>
    <main>
-      <router-view></router-view>
-      <!-- I am is App.vue -->
+       <RouterView />
+      <!-- or <router-view></router-view> -->
    </main>
  </template>
 

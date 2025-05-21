@@ -11,14 +11,14 @@
                      -->
                      <router-link :to="{ path: '/' }" tag="a"
                         data-infa="работает">
-									{{ sitename }}
+									{{ formattingLibrary.formatToUpperCase(sitename) }}
                      </router-link>
                   </h1>
                </header>
             </div>
 				<div class="col-8 btn btn-default btn-lg current-route-path"
 					style="display: inline-block; margin-top: 20px;">
-					<strong>Current route path:</strong> {{ $route.fullPath }}
+					<strong>Current route path:</strong> {{ this.$route.fullPath }}
 				</div>
             <div class="col wrap-btn-checkout">
                <div class="nav navbar-nav navbar-right for-btn-checkout">
@@ -27,9 +27,7 @@
                      v-on:click="showCheckout">
                      <span class="glyphicon glyphicon-shopping-cart">
 								[{{ cartItemCount }}] Checkout
-								<!-- [{{ ()=>{return cart.length || '';} }}] Checkout -->
-								<!-- [{{ cart.length }}] Checkout -->
-								<!-- [{{ cartCount }}] Checkout
+								<!-- v-on:click="showCheckout">
 								   <router-link to="/form" data-infa="работает">
 								   <router-link :to="{ path: '/form' }" data-infa="работает">
                            <router-link :to="{ name: 'Form' }" data-infa="работает">
@@ -48,15 +46,15 @@
    export default {
       name: 'my-header',         // or name: 'Header',
       components: {},
-      props: ['cartItemCount'],  // or props: {},
+      props: ['cartItemCount'],  // props: {}, \\ []
       data() {
          return {
-            sitename: "Petstore.", // continuation
+            sitename: "Petstore.",
          }
       },
       methods: {
-         showCheckout() {
-            /* console.log('I am showCheckout.');
+         showCheckout() {  // Показать оформление
+            /* console.log('I am showCheckout from Header component.');
                this.$router.push({path: '/form'});	// работает
             */
             this.$router.push({name: 'Form'});

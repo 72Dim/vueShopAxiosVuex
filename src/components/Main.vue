@@ -1,6 +1,5 @@
 <template>
    <div class="page"><!-- <div class="page-show-product"> -->
-      <!-- <my-header data-infa="работает" :cartItemCount="cartItemCount"></my-header> -->
       <my-header data-infa="работает"
 			:cartItemCount="cartItemCount">
 		</my-header>
@@ -14,35 +13,34 @@
 					<div data-column="2" class="col-8 text-center about-product">
 						<h1 v-text="product.title"></h1>
 						<p v-html="product.description"></p>
-						<p v-text="product.price"></p>
-						<button class="btn btn-primary btn-lg"
+						<!-- <p v-text="product.price"></p><p>{{ product.price }}</p> -->
+                  <p v-bind:data-price="formattingLibrary.formatPrice(product.price)">
+                     {{ formattingLibrary.formatPrice(product.price) }}
+                  </p>
+                  <button class="btn btn-primary btn-lg"
                      v-on:click="addToCart(product)"
-                     v-if="canAddToCart">
+                     v-if="canAddToCart(product)">
                      Add to cart
                   </button>
                   <button v-else class="btn btn-primary btn-lg"
                      disabled="true">
 							Add to cart
 						</button>
-
-						<!-- v-on:click="addToCart(product)"> -->
-						<!-- <button class="btn btn-primary btn-lg"
-							v-on:click="addToCart(product)"
-							v-if="canAddToCart(product)">
-								Add to cart
-						</button> -->
-						<!-- <span class="inventary-message"
+						<span class="inventary-message"
+                     data-infa="Всего!"
 							v-if="product.availableInventory - cartCount(product.id) === 0">
 							All Out!
 						</span>
 						<span class="inventary-message"
+                     data-infa="Осталось только"
 							v-else-if="product.availableInventory - cartCount(product.id) < 5">
 							Only {{product.availableInventory - cartCount(product.id)}} left!
 						</span>
 						<span class="inventary-message"
+                     data-infa="Купить сейчас!"
 							v-else>
 							Buy Now!
-						</span> -->
+						</span>
 						<div class="rating"
 							data-infa="<span v-bind:class=`{'rating-active': checkRating(n)}`
 									v-for=`n in 5`>☆</span> v-for=`n in 5`>
@@ -81,123 +79,115 @@
 </template>
 
 <script type="module">
-   // import axios from 'axios';
    import MyHeader from './Header.vue';
 	// import MyHeader from './components/Header.vue' //? работает
 
-   var APP_LOG_LIFECYCLE_EVENTS = false; // or false webstore.order.method
-	const cart = [1001, 1002, 1003];
+   var APP_LOG_LIFECYCLE_EVENTS = true; // true or false
+   /* Сокращённый синтаксис объявления методов
+      по ES6 or ES2015 без function ниже:
+   */
    export default {
       name: 'iMain',
 		components: { MyHeader },
-      // props: {	cartItemCount: },
-		props: [ 'width', 'length'],
       data() {
          return {
             width: 3,
             length:5,
-            // cart: [1001, 1002, 1003],
-            products: [
-               {
-                  id: 1001,
-                  title: "Cat Food, 25lb bag",
-                  description: "A 25 pound bag of <em>irresistible</em>,"
-                     + "organic goodness for your dog.",
-                  price: 2000,
-                  image: "/static/images/Cat.png",
-                  availableInventory: 10,
-                  rating: 1
-               },
-               {
-                  id: 1002,
-                  title: "Strong dog",
-                  description: "A 25 pound bag of <em>irresistible</em>,"
-                     + "organic goodness for your dog.",
-                  price: 2000,
-                  image: "/static/images/Dog.png",
-                  availableInventory: 7,
-                  rating: 1
-               },
-               {
-                  id: 1003,
-                  title: "Yarn",
-                  description: "A 25 pound bag of <em>irresistible</em>,"
-                     + "organic goodness for your dog.",
-                  price: 2000,
-                  image: "/static/images/Cat_myau.png",
-                  availableInventory: 99,
-                  rating: 4
-               },
-               {
-                  id: 1004,
-                  // title: "Laser Pointer",
-                  title: "Kitty Litter",
-                  description: "A 25 pound bag of <em>irresistible</em>,"
-                     + "organic goodness for your dog.",
-                  price: 2000,
-                  image: "/static/images/Smol_cat.png",
-                  availableInventory: 11,
-                  rating: 5
-               },
-               {
-                  id: 1005,
-                  title: "Kind",
-                  description: "A 25 pound bag of <em>irresistible</em>,"
-                     + "organic goodness for your dog.",
-                  price: 2000,
-                  image: "/static/images/Frands.png",
-                  availableInventory: 25,
-                  rating: 1
-               }
-            ],
+            cart: [],
+            // products: [
+            //    {
+            //       id: 1001,
+            //       title: "Cat Food, 25lb bag",
+            //       description: "A 25 pound bag of <em>irresistible</em>,"
+            //          + "organic goodness for your dog.",
+            //       price: 2000,
+            //       image: "/static/images/Cat.png",
+            //       availableInventory: 10,
+            //       rating: 1
+            //    },
+            //    {
+            //       id: 1002,
+            //       title: "Strong dog",
+            //       description: "A 25 pound bag of <em>irresistible</em>,"
+            //          + "organic goodness for your dog.",
+            //       price: 2000,
+            //       image: "/static/images/Dog.png",
+            //       availableInventory: 7,
+            //       rating: 1
+            //    },
+            //    {
+            //       id: 1003,
+            //       title: "Yarn",
+            //       description: "A 25 pound bag of <em>irresistible</em>,"
+            //          + "organic goodness for your dog.",
+            //       price: 2000,
+            //       image: "/static/images/Cat_myau.png",
+            //       availableInventory: 99,
+            //       rating: 4
+            //    },
+            //    {
+            //       id: 1004,
+            //       // title: "Laser Pointer",
+            //       title: "Kitty Litter",
+            //       description: "A 25 pound bag of <em>irresistible</em>,"
+            //          + "organic goodness for your dog.",
+            //       price: 2000,
+            //       image: "/static/images/Smol_cat.png",
+            //       availableInventory: 11,
+            //       rating: 5
+            //    },
+            //    {
+            //       id: 1005,
+            //       title: "Kind",
+            //       description: "A 25 pound bag of <em>irresistible</em>,"
+            //          + "organic goodness for your dog.",
+            //       price: 2000,
+            //       image: "/static/images/Frands.png",
+            //       availableInventory: 25,
+            //       rating: 1
+            //    }
+            // ]
          }
       },
-      filters: {},
       methods: {
-         addToCart: function (prod) { // Срабатывает по клику на кн. Add to cart
-            // console.log(prod);
-				this.cart.push(prod.id);
+         addToCart: function (aProd) { // Срабатывает по клику на кн. Add to cart
+            this.cart.push(aProd.id);
          },
-         /* Сокращённый синтаксис объявления методов
-            по ES6 or ES2015 без function ниже:
-            Срабатывает после клика по кн. корзиы
-            Тернальная операция переключает между true и false
-         */
-         showCheckout() {
-            this.showProduct = this.showProduct ? false : true;
+         canAddToCart: function (aProd) {   // можно добавить в корзину
+            // console.log('I am canAddToCart. cart.length: '+this.cart.length);
+            return aProd.availableInventory > this.cartCount(aProd.id);
          },
-
+         cartCount(id) {   // Подсчитываем ко-во определённого товара в in cart
+            let count = 0;
+            for (let i = 0; i < this.cart.length; i++) {
+               if ( this.cart[i] === id ) {
+                  count++;
+               }
+            }
+            return count;
+         },
          submitForm() { // Для теста кнопки
             alert('Submitted');
          },
-         checkRating(n) {
-            // return this.product.rating - n >= 0;
+         checkRating(n, myProduct) {   // Проверьте рейтинг
+            // console.log(n);
+            // console.log('id: '+myProduct.id+' rating: '+myProduct.rating+'.');
+            return myProduct.rating - n >= 0;
          }
       },
       computed: { // вычисляемые
+         products: function() {
+            // console.log(this.$store);
+            return this.$store.getters.products;
+         },
+         cartItemCount: function () {  // посчитать количество товара в карзине
+            // console.log('I am cartItemCount from Main.vue.');
+            return this.cart.length || '';
+
+         },
          area: function () {
             return this.width * this.length;
          },
-         cartItemCount: function () {
-            // console.log('I am cartItemCount from Main.vue.');
-            // return this.cart.length || '';
-            return cart.length || '';
-				
-         },
-         canAddToCart: function (product) {
-            // console.log('I am canAddToCart. cart.length: '+this.cart.length);
-            // if ( 0 < this.cart.length ) {
-            //    return true;
-            // }
-            if ( 0 < cart.length ) {
-               return true;
-            }
-
-            // console.dir(product);
-            // console.log(this.cartItemCount);
-            // console.log(this.product.availableInventory);
-            // return this.product.availableInventory > this.cartItemCount;
-         }
       },
       watch: { // смотреть, наблюдать
          length: function (newVal, oldVal) {
@@ -216,64 +206,53 @@
             );
          }
       },
-      filters: {},
-      // created: function() {
-      //    axios.get('/static/products.json')
-      //       .then((response) => {
-      //          this.products = response.data.products;
-      //          console.log(this.products);
-      //    });
-      // },
-
-      beforeUpdate: function () {
-         console.log('All those data changes happend '
-            + 'before the output gets updated.'
-         );
-      },
       // Test huki
       beforeCreate: function () {
          if (APP_LOG_LIFECYCLE_EVENTS) {
-            console.log("beforeCreate");
+            // console.log("beforeCreate");
          }
       },
       created: function () {
          if (APP_LOG_LIFECYCLE_EVENTS) {
-            console.log("created");
+            // console.log('I am created hook')
+            this.$store.dispatch('initStore');
          }
       },
       beforeMount: function () {
          if (APP_LOG_LIFECYCLE_EVENTS) {
-            console.log("beforeMount");
+            // console.log("beforeMount");
          }
       },
       mounted: function () {
          if (APP_LOG_LIFECYCLE_EVENTS) {
-            console.log("mounted");
+            // console.log("mounted");
          }
       },
       beforeUpdate: function () {
          if (APP_LOG_LIFECYCLE_EVENTS) {
-            console.log("beforeUpdate");
+            // console.log("beforeUpdate");
          }
       },
       updated: function () {
          if (APP_LOG_LIFECYCLE_EVENTS) {
-            console.log("updated:");
+            // console.log("updated:");
          }
       },
       beforeDestroy: function () {
          if (APP_LOG_LIFECYCLE_EVENTS) {
-            console.log("beforeDestroy");
+            // console.log("beforeDestroy");
          }
       },
       destroyed: function () {
          if (APP_LOG_LIFECYCLE_EVENTS) {
-            console.log("destroyed");
+            // console.log("destroyed");
          }
       },
    }
 </script>
 
 <style scoped>
-	/* Все стили файла app.css подкюченны глобально в файле /src/main.js, */
+	/* Все стили файла app.css подкюченны
+      глобально в файле /src/main.js.
+   */
 </style>
