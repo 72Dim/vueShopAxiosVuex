@@ -11,7 +11,12 @@
 						<img :src="product.image" alt="Animal">
 					</div>
 					<div data-column="2" class="col-8 text-center about-product">
-						<h1 v-text="product.title"></h1>
+						<!-- <h1 v-text="product.title"></h1> -->
+						<router-link
+                     tag="h1"
+                     :to="{name: 'Id', params: {id: product.id}}">
+                     {{ product.title }}
+                  </router-link>
 						<p v-html="product.description"></p>
 						<!-- <p v-text="product.price"></p><p>{{ product.price }}</p> -->
                   <p v-bind:data-price="formattingLibrary.formatPrice(product.price)">

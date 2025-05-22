@@ -3,9 +3,10 @@ import router from "./router";
 import { store } from "./store/store.js";
 
 import App from "./App.vue";
+import Main from './components/Main.vue'
 import Header from './components/Header.vue'
 import Form from './components/Form.vue'
-import Main from './components/Main.vue'
+import Product from './components/Product.vue'
 import './assets/app.css'
 
 /* console.log(router); для настройки
@@ -41,9 +42,10 @@ const app = createApp({
    template: '<App/>',  // or'<App></App>',
    components: {
       App,
+      Main,
       Header,
       Form,
-      Main
+      Product
    }
 });
 // app.config.performance = true; // включает компиляцию и др.
@@ -66,4 +68,7 @@ app.mount('#app');
 
 /* Сравнение синтаксисов Vue JS
 	https://habr.com/ru/articles/690508/
+   Публичное название проекта
+   firebsae: project-881663215012
+   Add Firebase to your web application
 */

@@ -57,12 +57,16 @@ export const store = createStore({
                   rating: 1
                }
          ],
+      albums: [],
       }
 	},
 	mutations: {
 		'SET_STORE' (state, products) {
-			state.products = products;
-		}
+         state.products = products;
+      },
+      'SET_ALBUMS'(state, payload) {   // payload - полезная нагрузка
+         state.albums = payload;
+      }
 	},
 	actions: {
       initStore: ({ commit }) => {
@@ -72,7 +76,14 @@ export const store = createStore({
 				// console.log(response.data.products);   // просматриваем Ответ на запрос
 				commit('SET_STORE', response.data.products);
 			});
-		}
+      },
+      // addAlbums: function({ params, store }) {
+      //    axios.get(`https://itunes.apple.com/search?term=${params.id}&entity=album`)
+      //       .then((response) => {
+      //          console.log(response.data);
+      //          // store.commit('add', response.data);
+      //       });
+      // }
 	},
 	getters: {
 		products: state => state.products
