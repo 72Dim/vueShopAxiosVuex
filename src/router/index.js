@@ -5,6 +5,8 @@ import Main from '../components/Main.vue' // работает
 import Form from '../components/Form.vue' // работает
 import MyHeader from '../components/Header.vue' // работает
 import Product from '../components/Product.vue' //
+import iTunesSearch from '../components/iTunes-search.vue'
+import ResultSearch from '../components/Result-search.vue'
 
 /* //* Смотрим, что возвращает import
    let url = import.meta.env.BASE_URL;
@@ -18,18 +20,15 @@ const router = createRouter({
    mode: 'history',
    history: createWebHistory(import.meta.env.BASE_URL),
    routes: [
-      {
-         path: '/',
+      {  path: '/',
          name: 'iMain',
          component: Main
       },
-      {
-         path: '/form',
+      {  path: '/form',
 			name: 'Form',
          component: Form
       },
-      {
-         path: '/header',
+      {  path: '/header',
 			name: 'Header',
          component: MyHeader
       },
@@ -38,6 +37,19 @@ const router = createRouter({
 			name: 'Id',
          component: Product
       },
+      {
+         path: '/iTunes/search',   // domain/searchINiTunes
+         name: 'iTunesSearch',
+         component: iTunesSearch,
+         children: [
+            {
+               path: 'results/:id', // domain/searchINiTunes/results/Taylor%20Swift
+               name: 'Results',
+               component: ResultSearch,
+               props:true
+            }
+         ]
+      }
    ]
 })
 export default router

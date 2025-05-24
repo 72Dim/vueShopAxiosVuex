@@ -37,13 +37,13 @@ import MyHeader from './Header.vue'; // работает
 				product: ''
 			}
 		},
-   created: function () {
-      console.log(this.$store.getters.products);
-      this.product = this.$store.getters.products
-         .filter(product => product.id == this.$route.params.id)[0];
-         console.log(this.product);
-		}
-	}
+      created: function () {
+         console.log(this.$store.getters.products);
+         this.product = this.$store.getters.products
+            .filter(product => product.id == this.$route.params.id)[0];
+            console.log(this.product);
+         }
+      }
 </script>
 
 <style lang="css" scoped>

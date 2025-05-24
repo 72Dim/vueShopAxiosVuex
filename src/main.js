@@ -32,6 +32,12 @@ const formattingLibrary = {   //  formattingLibrary.formatToUpperCase()
    },
    formatToUpperCase: function (params) { // Возвращ. отформатир. текст как ТЕКСТ
       return params.toUpperCase();
+   },
+   truncateString: function (str, maxLength) { // усечение строки
+      if (str.length <= maxLength) {
+         return str;
+      }
+      return str.slice(0, maxLength) + "...";
    }
 };
 

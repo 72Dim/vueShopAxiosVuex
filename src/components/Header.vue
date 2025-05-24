@@ -18,10 +18,11 @@
             </div>
 				<div class="col-8 btn btn-default btn-lg current-route-path"
 					style="display: inline-block; margin-top: 20px;">
-					<strong>Current route path:</strong> {{ this.$route.fullPath }}
+					<strong>Current route path:</strong>
+                  {{ formattingLibrary.truncateString(this.$route.fullPath, 46) }}
 				</div>
             <div class="col wrap-btn-checkout">
-               <div class="nav navbar-nav navbar-right for-btn-checkout">
+               <div class="nav navbar-nav navbar-right wrap-checkout">
                   <button type="button"
                      class="btn btn-default btn-lg"
                      v-on:click="showCheckout">
@@ -33,6 +34,22 @@
                            <router-link :to="{ name: 'Form' }" data-infa="работает">
 										[] Checkout</router-link>
                         -->
+                     </span>
+                  </button>
+               </div>
+               <div class="nav navbar-nav navbar-right wrap-itunes">
+                  <button type="button"
+                     class="btn btn-default btn-lg btn-itunes"
+                     v-on:click="iTunes">
+                     <span class="glyphicon ">
+								<!-- {{  }} iTunes Search -->
+								<!-- v-on:click="showCheckout">
+								   <router-link to="/form" data-infa="работает">
+								   <router-link :to="{ path: '/form' }" data-infa="работает">
+                           <router-link :to="{ name: 'iTunesSearch' }"
+                              data-infa="работает"></router-link>
+                        -->
+								iTunes
                      </span>
                   </button>
                </div>
@@ -58,6 +75,9 @@
                this.$router.push({path: '/form'});	// работает
             */
             this.$router.push({name: 'Form'});
+         },
+         iTunes() {
+            this.$router.push({name: 'iTunesSearch'});
          }
       },
    }
@@ -70,4 +90,14 @@
       в файле /src/main.js, через инструкцию import
       import './assets/app.css'.
    */
+   .wrap-checkout {
+      margin-left: 10px;
+      margin-right: 0px;
+   }
+   .wrap-itunes {
+      color: blueviolet;
+   }
+   .btn-itunes {
+      color: inherit;
+   }
 </style>
